@@ -1426,6 +1426,7 @@ switch ($action)
 	$json['result'] = false;
 	$mode = explode(';', $_SERVER["CONTENT_TYPE"]);
 	$mode = trim($mode[0]);
+
 	if ($mode == 'application/x-www-form-urlencoded')
 	{
 		$data = $_POST;
@@ -1433,7 +1434,9 @@ switch ($action)
 	elseif ($mode == 'application/json')
 	{
 		$data = json_decode(file_get_contents('php://input'), true);
-	}
+	} else {
+        $data = $_GET;
+    }
 	$login = (isset($data) ? $data['login'] : null);
 	$password = (isset($data) ? $data['password'] : null);
 	$genread = (isset($data) ? (bool)$data['genread'] : false);
